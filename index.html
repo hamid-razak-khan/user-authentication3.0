@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login / Signup</title>
   <style>
-    /* Basic styles, use same as previous example or your preferred style */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #6a11cb, #2575fc);
@@ -183,13 +182,13 @@
     }
 
     loginTab.addEventListener('click', showLogin);
-        signupTab.addEventListener('click', showSignup);
+    signupTab.addEventListener('click', showSignup);
     bindSwitchLink();
 
-    // Backend API URL
-    const BASE_URL = 'https://user-authetication-smoky.vercel.app/';
+    // ✅ Backend API base URL
+    const BASE_URL = 'https://user-authetication-smoky.vercel.app';
 
-    // Handle Login
+    // ✅ Handle Login
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
@@ -206,13 +205,10 @@
         if (res.ok) {
           alert('Login successful!');
           console.log('JWT Token:', data.token);
-          // Save token to localStorage or sessionStorage
           localStorage.setItem('token', data.token);
-          // ✅ Redirect to dashboard.html
-          window.location.href = 'dashboard.html';
-          // Redirect to dashboard or homepage
+          window.location.href = 'dashboard.html'; // ✅ Make sure this file exists
         } else {
-          alert(data.msg || 'Login failed');
+          alert(data?.msg || data?.error || 'Login failed');
         }
       } catch (err) {
         console.error(err);
@@ -220,7 +216,7 @@
       }
     });
 
-    // Handle Signup
+    // ✅ Handle Signup
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const username = document.getElementById('signup-name').value;
@@ -237,9 +233,9 @@
         const data = await res.json();
         if (res.ok) {
           alert('Signup successful! You can now log in.');
-          showLogin(); // Switch to login tab
+          showLogin();
         } else {
-          alert(data.msg || 'Signup failed');
+          alert(data?.msg || data?.error || 'Signup failed');
         }
       } catch (err) {
         console.error(err);
@@ -249,4 +245,3 @@
   </script>
 </body>
 </html>
-
